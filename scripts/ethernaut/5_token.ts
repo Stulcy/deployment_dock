@@ -19,11 +19,6 @@ async function handleTest() {
 async function handleReal() {
   const [me] = await ethers.getSigners();
 
-  const token = await ethers.getContractAt(
-    "Token",
-    "0x83e400Da260da717B5B84e5a4900A92CF593e739"
-  );
-
   const goodFriendFactory = await ethers.getContractFactory("GoodFriend");
   const goodFriend = await goodFriendFactory.deploy(
     "0x83e400Da260da717B5B84e5a4900A92CF593e739"
