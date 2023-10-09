@@ -48,7 +48,7 @@ async function handleReal() {
   console.log(await king.prize());
 
   await me
-    .sendTransaction({ to: kingAddress, value: ethers.parseEther("0.002") })
+    .sendTransaction({ to: kingAddress, value: prevPrice + 2n })
     .catch((e) => console.log(e));
 
   console.log(await king.prize());
