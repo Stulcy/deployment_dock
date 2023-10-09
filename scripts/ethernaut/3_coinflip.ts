@@ -1,8 +1,5 @@
 import { ethers } from "hardhat";
 
-const FACTOR =
-  57896044618658097711785492504343953926634992332820282019728792003956564819968n;
-
 // Run on localhost
 async function handleTest() {
   const coinFlipFactory = await ethers.getContractFactory("CoinFlip");
@@ -24,11 +21,6 @@ async function handleTest() {
 }
 
 async function handleReal() {
-  const coinFlip = await ethers.getContractAt(
-    "CoinFlip",
-    "0x9329A37b58A858DE76cD6e3edd782E00006326B8"
-  );
-
   const coinFlipBreakerFactory = await ethers.getContractFactory(
     "CoinFlipBreaker"
   );
