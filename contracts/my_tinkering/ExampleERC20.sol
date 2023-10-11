@@ -9,6 +9,6 @@ contract ExampleERC20 is ERC20 {
         string memory _symbol
     ) ERC20(_name, _symbol) {
         // Mint 10 tokens to deployer address
-        _mint(msg.sender, 10 * 10 ** uint(decimals()));
+        _mint(msg.sender, 1000000 * 10 ** uint(decimals()));
     }
 }
