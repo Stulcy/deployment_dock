@@ -78,7 +78,7 @@ async function deployV2() {
     1,
     me.address,
     timestamp,
-    { value: ethers.parseEther("1") }
+    { value: ethers.parseEther("0.01") }
   );
 
   // Checks if pool created successfully
@@ -95,7 +95,22 @@ async function deployV2() {
   console.log("Reserves ->", await exampleWethPool.getReserves());
 }
 
+async function runChecks() {
+  const factory = await ethers.getContractAt(
+    "UniswapV2Factory",
+    "0xb861D48d4F2b946DA83841b280A8b9c81c0eA539"
+  );
+
+  const pairsFirst = await factory.allPairs(0);
+  console.log(pairsFirst);
+
+  const pair = await ethers.getContractAt("UniswapV2Pair", pairsFirst);
+
+  console.log(await pair.getReserves());
+}
+
 deployV2().catch((error) => {
+  // runChecks().catch((error) => {
   console.error(error);
   process.exitCode = 1;
 });
