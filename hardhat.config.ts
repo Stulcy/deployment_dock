@@ -18,8 +18,12 @@ const config: HardhatUserConfig = {
   },
   networks: {
     sepolia: {
-      url: `https://eth-sepolia.g.alchemy.com/v2/${process.env.ALCHEMY_API_KEY}`,
-      accounts: [process.env.SEPOLIA_PRIVATE_KEY as string],
+      url: `https://eth-sepolia.g.alchemy.com/v2/${process.env.SEPOLIA_ALCHEMY_API_KEY}`,
+      accounts: [process.env.WALLET_PRIVATE_KEY as string],
+    },
+    mumbai: {
+      url: `https://polygon-mumbai.g.alchemy.com/v2/${process.env.MUMBAI_ALCHEMY_API_KEY}`,
+      accounts: [process.env.WALLET_PRIVATE_KEY as string],
     },
   },
 };
