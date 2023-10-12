@@ -71,7 +71,7 @@ async function deployV2() {
 
   // Adding liquidity
 
-  await router.addLiquidityETH(
+  const addLiquidityTx = await router.addLiquidityETH(
     exampleTokenAddress,
     ethers.parseEther("100000"),
     ethers.parseEther("100000"),
@@ -80,6 +80,7 @@ async function deployV2() {
     timestamp,
     { value: ethers.parseEther("0.01") }
   );
+  await addLiquidityTx.wait();
 
   // Checks if pool created successfully
 

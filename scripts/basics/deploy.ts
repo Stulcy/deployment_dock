@@ -1,11 +1,13 @@
 import { ethers } from "hardhat";
 
+// Basic example of deploying a contract
+
 async function main() {
-  const lock = await ethers.deployContract("Smth");
+  const smthDeployer = await ethers.getContractFactory("Smth");
+  const smth = await smthDeployer.deploy();
+  await smth.waitForDeployment();
 
-  await lock.waitForDeployment();
-
-  console.log("Deployed");
+  console.log("Deployed ->", await smth.getAddress());
 }
 
 main().catch((error) => {
