@@ -1,6 +1,6 @@
 # DEPLOYMENT DOCK 🚀
 
-Hello there and welcome to my **Deployment Dock**!
+Hello there and welcome to my **Deployment Dock**!<br /><br />
 This [**Hardhat**](https://hardhat.org/) project consists of all the [**Solidity**](https://soliditylang.org/) knowledge I have managed to gather so far. I am on a mission to learn everything there is to know about blockchain and Solidity. Feel free to steal some of my code and please inform me if you find any mistakes or potential improvements. Thanks!
 
 ## Basic commands
