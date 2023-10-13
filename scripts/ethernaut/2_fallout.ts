@@ -6,29 +6,30 @@ async function handleTest() {
 
   const falloutFactory = await ethers.getContractFactory("Fallout");
   const fallout = await falloutFactory.connect(deployer).deploy();
+  await fallout.waitForDeployment();
+
+  console.log(await fallout.owner());
 
   console.log(await ethers.provider.getBalance(me.address));
 
-  await fallout.connect(me).Fal1out({ value: ethers.parseEther("50") });
+  const falloutTx = await fallout
+    .connect(me)
+    .Fal1out({ value: ethers.parseEther("50") });
+  await falloutTx.wait();
 
   console.log(await ethers.provider.getBalance(me.address));
 
-  await fallout.connect(me).collectAllocations();
+  const collectTx = await fallout.connect(me).collectAllocations();
+  await collectTx.wait();
 
   console.log(await ethers.provider.getBalance(me.address));
 }
 
 async function handleReal() {
-  const fallout = await ethers.getContractAt(
-    "Fallout",
-    "0x901eBDe592d38BB759F36d72262b1487eba7A16A"
-  );
+  const fallout = await ethers.getContractAt("Fallout", "0xSPACEGENTLEMAN");
 
-  const [me] = await ethers.getSigners();
-
-  await fallout.connect(me).Fal1out({ value: 1 });
-
-  await fallout.connect(me).collectAllocations();
+  const falloutTx = await fallout.Fal1out();
+  await falloutTx.wait();
 }
 
 // handleTest().catch((error) => {

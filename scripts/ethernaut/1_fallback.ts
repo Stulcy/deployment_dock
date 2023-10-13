@@ -17,10 +17,7 @@ async function handleTest() {
 }
 
 async function handleReal() {
-  const fallback = await ethers.getContractAt(
-    "Fallback",
-    "0x8A9704af359dEe3435Ae4cf2323750E71c762428"
-  );
+  const fallback = await ethers.getContractAt("Fallback", "0xSPACEGENTLEMAN");
 
   const [me] = await ethers.getSigners();
 
