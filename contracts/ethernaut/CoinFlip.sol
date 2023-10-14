@@ -1,8 +1,6 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import "hardhat/console.sol";
-
 contract CoinFlipBreaker {
     CoinFlip coinFlipContract;
     uint256 FACTOR =
@@ -37,10 +35,6 @@ contract CoinFlip {
 
     function flip(bool _guess) public returns (bool) {
         uint256 blockValue = uint256(blockhash(block.number - 1));
-        console.log("Block number:", block.number);
-        console.log("blockValue:", blockValue);
-        console.log("coinFlip:", blockValue / FACTOR);
-        console.log("lastHash:", lastHash);
 
         if (lastHash == blockValue) {
             revert();
@@ -50,7 +44,6 @@ contract CoinFlip {
         uint256 coinFlip = blockValue / FACTOR;
         bool side = coinFlip == 1 ? true : false;
 
-        console.log(side, _guess);
         if (side == _guess) {
             consecutiveWins++;
             return true;
