@@ -4,6 +4,7 @@ import { ethers } from "hardhat";
 async function handleTest() {
   const telephoneFactory = await ethers.getContractFactory("Telephone");
   const telephone = await telephoneFactory.deploy();
+  await telephone.waitForDeployment();
 
   const telephoneCallerFactory = await ethers.getContractFactory(
     "TelephoneCaller"
@@ -11,8 +12,10 @@ async function handleTest() {
   const telephoneCaller = await telephoneCallerFactory.deploy(
     await telephone.getAddress()
   );
+  await telephoneCaller.waitForDeployment();
 
-  await telephoneCaller.callChangeOwner();
+  const tx = await telephoneCaller.callChangeOwner();
+  await tx.wait();
 }
 
 async function handleReal() {
@@ -20,10 +23,12 @@ async function handleReal() {
     "TelephoneCaller"
   );
   const telephoneCaller = await telephoneCallerFactory.deploy(
-    "0x59929b8581bd0055ac41CF345eADA62208a55043"
+    "0xSPACEGENTLEMAN"
   );
+  await telephoneCaller.waitForDeployment();
 
-  await telephoneCaller.callChangeOwner();
+  const tx = await telephoneCaller.callChangeOwner();
+  await tx.wait();
 }
 
 // handleTest().catch((error) => {
