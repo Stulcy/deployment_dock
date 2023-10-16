@@ -2,16 +2,20 @@ import { ethers } from "hardhat";
 
 // Run on localhost
 async function handleTest() {
-  const [me, deployer, other] = await ethers.getSigners();
+  const [me, deployer] = await ethers.getSigners();
 
   const tokenFactory = await ethers.getContractFactory("Token");
   const token = await tokenFactory.connect(deployer).deploy(21000000);
+  await token.waitForDeployment();
 
-  console.log(await token.totalSupply());
+  const goodFriendFactory = await ethers.getContractFactory("GoodFriend");
+  const goodFriend = await goodFriendFactory.deploy(await token.getAddress());
+  await goodFriend.waitForDeployment();
+
   console.log(await token.balanceOf(me.address));
-  console.log(await token.balanceOf(deployer.address));
 
-  await token.connect(other).transfer(me.address, 1000000000000000);
+  const tx = await goodFriend.callTransfer(me.address, 1000000000000000);
+  await tx.wait();
 
   console.log(await token.balanceOf(me.address));
 }
@@ -20,11 +24,11 @@ async function handleReal() {
   const [me] = await ethers.getSigners();
 
   const goodFriendFactory = await ethers.getContractFactory("GoodFriend");
-  const goodFriend = await goodFriendFactory.deploy(
-    "0x83e400Da260da717B5B84e5a4900A92CF593e739"
-  );
+  const goodFriend = await goodFriendFactory.deploy("0xSPACEGENTLEMAN");
+  await goodFriend.waitForDeployment();
 
-  await goodFriend.callTransfer(me.address, 1000000000000000);
+  const tx = await goodFriend.callTransfer(me.address, 1000000000000000);
+  await tx.wait();
 }
 
 // handleTest().catch((error) => {
