@@ -33,15 +33,16 @@ contract Deal {
         _;
     }
 
+    function didUserAllow(address _userAddress) public view returns (bool) {
+        if (user0 == _userAddress) {
+            return token0.allowance(user0, address(this)) >= amount0;
+        }
+        return token1.allowance(user1, address(this)) >= amount1;
+    }
+
     function execute() external isCompleted {
-        require(
-            token0.allowance(user0, address(this)) >= amount0,
-            "User0 insufficient allowance."
-        );
-        require(
-            token1.allowance(user1, address(this)) >= amount1,
-            "User1 insufficient allowance."
-        );
+        require(didUserAllow(user0), "Insufficient allowance user0.");
+        require(didUserAllow(user1), "Insufficient allowance user1.");
         _executeSwap(user0, user1, amount0, token0);
         _executeSwap(user1, user0, amount1, token1);
     }

