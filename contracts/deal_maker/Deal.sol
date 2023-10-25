@@ -45,6 +45,7 @@ contract Deal {
         require(didUserAllow(user1), "Insufficient allowance user1.");
         _executeSwap(user0, user1, amount0, token0);
         _executeSwap(user1, user0, amount1, token1);
+        completed = true;
     }
 
     function _executeSwap(
