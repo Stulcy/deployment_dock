@@ -7,6 +7,7 @@ const config: HardhatUserConfig = {
   // solidity: "0.8.19",
   solidity: {
     compilers: [
+      { version: "0.8.2" },
       { version: "0.8.19" },
       { version: "0.6.0" },
       { version: "0.6.12" },
@@ -27,6 +28,13 @@ const config: HardhatUserConfig = {
     mumbai: {
       // url: `https://polygon-mumbai.infura.io/v3/${process.env.MUMBAI_INFURA_API_KEY}`,
       url: `https://polygon-mumbai.g.alchemy.com/v2/${process.env.MUMBAI_ALCHEMY_API_KEY}`,
+      accounts: [
+        process.env.WALLET_PRIVATE_KEY as string,
+        process.env.SECOND_WALLET_PRIVATE_KEY as string,
+      ],
+    },
+    bsc: {
+      url: "https://bsc-dataseed1.bnbchain.org",
       accounts: [
         process.env.WALLET_PRIVATE_KEY as string,
         process.env.SECOND_WALLET_PRIVATE_KEY as string,
